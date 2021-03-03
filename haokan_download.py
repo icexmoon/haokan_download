@@ -1,0 +1,55 @@
+def programExit(message):
+    sys.stdout.writelines([message+"\r\n","program exit"])
+    exit()
+import sys
+sys.stdout.write("请输入好看视频作者id:")
+authorId=input()
+from haokan_author import HaokanAuthor
+haokanAuthor=HaokanAuthor(authorId)
+authorName=haokanAuthor.getAuthorName()
+if len(authorName)==0:
+    programExit("没有找到视频作者信息，请检查作者id是否有误")
+sys.stdout.write("匹配到视频作者："+authorName+"\r\n")
+#读取存储目录，检查是否有用户名称命名的文件夹，若没有，新建
+saveHome="d:\\download\\好看视频"
+nowSaveDir=saveHome+"\\"+authorName+'('+authorId+')'
+import os
+if not os.path.exists(nowSaveDir):
+    os.mkdir(nowSaveDir)
+    sys.stdout.writelines(["创建视频存储目录："+nowSaveDir+"\r\n"])
+#读取视频作者的所有视频列表
+sys.stdout.write("正在查询该作者的所有视频，请稍候\r\n")
+videoList=haokanAuthor.getVideoList()
+videoNum=len(videoList)
+if videoNum==0:
+    programExit("没有找到该作者的视频列表")
+#从本地读取已下载文件列表
+localVideoList=os.listdir(nowSaveDir)
+#如果本地已经有视频中没有，加入待下载列表
+downloadList=[]
+if len(localVideoList)>0:
+    for videoItem in videoList:
+        if not videoItem['videoName'] in localVideoList:
+            downloadList.append(videoItem)
+else:
+    #本地没有已下载视频，将视频列表全部加入待下载列表
+    downloadList=videoList
+videoNum=len(downloadList)
+if videoNum == 0:
+    programExit("该作者的视频均已下载到本地")
+sys.stdout.write("总共找到视频作者"+authorName+"的"+str(videoNum)+"个未下载视频，是否开始下载：(y/n)")
+command=input()
+if command!='y':
+    programExit("用户取消下载")
+sys.stdout.write("开始下载，总共"+str(videoNum)+"个视频\r\n")
+from download_help import DownloadHelp
+downloader=DownloadHelp()
+alreadyDownNum=0
+for videoInfo in downloadList:
+    downloader.download(videoInfo['videoSrc'],nowSaveDir+"\\"+videoInfo['videoName'])
+    alreadyDownNum+=1
+    p=100.0*alreadyDownNum/videoNum
+    if p<1:
+        p=1
+    sys.stdout.write(" 下载进度 %.2f%%"%(p)+" 最新下载的文件为 "+videoInfo['videoName']+"\r\n")
+programExit("全部文件已下载完毕")
