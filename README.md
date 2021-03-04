@@ -2,7 +2,7 @@
 
 ## 简介
 
-- 本应用的用途为从**[好看视频](https://haokan.hao123.com/)**网站下载指定视频作者的所有视频到本地。
+- 本应用的用途为从[**好看视频**](https://haokan.hao123.com/)网站下载指定视频作者的所有视频到本地。
 - 本应用支持断点重下。
 
 ## 注意事项
@@ -15,10 +15,10 @@
    - import requests
    - html5lib
 
-> - Windows下安装python3请阅读**[这里](https://www.cnblogs.com/Moon-Face/p/14440627.html)**。
+> - Windows下安装python3请阅读[**这里**](https://www.cnblogs.com/Moon-Face/p/14440627.html)。
 >
-> - Linux下安装python3请阅读**[这里](https://www.cnblogs.com/Moon-Face/p/14469617.html)**。
-> - python模块安装请阅读**[这里](https://www.cnblogs.com/Moon-Face/p/14465792.html)**，在文件末尾部分。
+> - Linux下安装python3请阅读[**这里**](https://www.cnblogs.com/Moon-Face/p/14469617.html)。
+> - python模块安装请阅读[**这里**](https://www.cnblogs.com/Moon-Face/p/14465792.html)，在文件末尾部分。
 
 ## 操作指南
 
